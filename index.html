@@ -83,6 +83,7 @@
             overflow-x: hidden;
             position: relative;
             z-index: 0;
+            scroll-behavior: smooth; /* Smooth scrolling enabled globally */
         }
 
         /* BRIGHT BACKGROUND ORBS */
@@ -276,7 +277,79 @@
             margin-bottom: 0;
         }
 
-        /* NEW SECTION: Services Grid */
+        /* JOURNEY TIMELINE SECTION */
+        #journey {
+            /* Special darker background for journey section to stand out */
+            background: radial-gradient(circle at center, rgba(0, 246, 255, 0.05) 0%, rgba(8, 12, 19, 0) 70%);
+        }
+
+        .timeline-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Vertical Neon Line */
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background: #00f6ff;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            border-radius: 2px;
+            box-shadow: 0 0 10px #00f6ff;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 35px;
+        }
+
+        /* Glowing Dots */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: #080c13;
+            border: 3px solid #00f6ff;
+            border-radius: 50%;
+            top: 25px;
+            left: 12.5px;
+            z-index: 1;
+            box-shadow: 0 0 12px #00f6ff;
+        }
+
+        .timeline-card {
+            padding: 25px 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(0, 246, 255, 0.15);
+            border-color: rgba(0, 246, 255, 0.4);
+        }
+
+        .timeline-card h3 {
+            color: #ffffff;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline-card p {
+            color: #cbd5e1;
+            font-size: 1em;
+            line-height: 1.7;
+        }
+
+        /* Services Grid */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -337,6 +410,12 @@
             .hex-wrapper { width: 230px; height: 260px; }
             .glass-card { padding: 25px 15px; }
             .btn { width: 100%; max-width: 300px; }
+            
+            /* Responsive Timeline */
+            .timeline-container::after { left: 15px; }
+            .timeline-item { padding-left: 45px; }
+            .timeline-item::after { left: 7.5px; }
+            .timeline-card { padding: 20px 15px; }
         }
     </style>
 </head>
@@ -347,12 +426,14 @@
        <div class="logo" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" title="Go to Home">K<span>T</span></div>
         <ul>
             <li><a href="#home" class="active">Home</a></li>
-            <li><a href="#about">Introduction</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#journey">Journey</a></li>
             <li><a href="#services">Services</a></li>
         </ul>
     </nav>
 
     <script>
+        // Smooth scrolling for navigation links
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -360,14 +441,16 @@
                 const targetSection = document.querySelector(targetId);
                 
                 if(targetSection) {
+                    // Adjusted offset for sticky navbar
                     window.scrollTo({
-                        top: targetSection.offsetTop - 50,
+                        top: targetSection.offsetTop - 80, 
                         behavior: 'smooth'
                     });
                 }
             });
         });
 
+        // Advanced Scrollspy: Keep Navbar perfectly highlighted on scroll
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('nav ul li a');
 
@@ -376,10 +459,18 @@
 
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (pageYOffset >= (sectionTop - 100)) {
+                const sectionHeight = section.clientHeight;
+                
+                // If scroll crosses the section top (adjusted for navbar space)
+                if (window.scrollY >= (sectionTop - 150)) {
                     current = section.getAttribute('id');
                 }
             });
+
+            // If scrolled to the absolute bottom of page, highlight the last item
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+                current = sections[sections.length - 1].getAttribute('id');
+            }
 
             navLinks.forEach(link => {
                 link.classList.remove('active');
@@ -389,6 +480,7 @@
             });
         });
 
+        // Security key restrictions
         document.addEventListener('contextmenu', event => event.preventDefault());
 
         document.addEventListener('keydown', function(e) {
@@ -437,6 +529,49 @@
             <p>My mission is to inspire, mentor, and guide future beauty artists by providing personalized training, modern techniques, and a supportive learning environment. I believe that every student has the potential to build a successful career with the right knowledge, practice, and encouragement.</p>
             
             <p>What sets me apart is my commitment to practical learning, attention to detail, patience in teaching, and genuine dedication to each student's growth. I strive not only to teach beauty techniques but also to help individuals build confidence, creativity, and a strong foundation for a successful future in the beauty industry.</p>
+        </div>
+    </section>
+
+    <section id="journey">
+        <h2 class="section-title">My <span>Journey</span></h2>
+        
+        <div class="timeline-container">
+            
+            <div class="timeline-item">
+                <div class="glass-card timeline-card">
+                    <h3>💅 Started as a Nail Artist</h3>
+                    <p>My journey began with a passion for creativity and beauty. I started as a Nail Artist, dedicating myself to mastering modern nail techniques and delivering high-quality services.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="glass-card timeline-card">
+                    <h3>🎓 Earned Professional Certifications</h3>
+                    <p>Driven by continuous learning, I completed professional certifications in Nail Technology and Semi-Permanent Makeup (SPMU), strengthening my expertise and staying aligned with the latest industry standards.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="glass-card timeline-card">
+                    <h3>👩‍🏫 Became a Certified Educator</h3>
+                    <p>As my experience grew, I became a Certified Nail & SPMU Educator, committed to sharing my knowledge and helping aspiring beauty professionals build successful careers.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="glass-card timeline-card">
+                    <h3>🌟 Trained Future Beauty Professionals</h3>
+                    <p>Through hands-on training, practical demonstrations, and personalized mentorship, I have guided students in developing the confidence, technical skills, and creativity needed to excel in the beauty industry.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="glass-card timeline-card">
+                    <h3>📚 Continuing Professional Development</h3>
+                    <p>Learning never stops. I continuously enhance my skills by attending advanced workshops, exploring new techniques, and staying updated with the latest beauty trends to provide the highest standard of education and training.</p>
+                </div>
+            </div>
+
         </div>
     </section>
 
