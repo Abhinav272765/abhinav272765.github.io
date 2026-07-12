@@ -251,7 +251,7 @@
         .section-title { text-align: center; font-size: 2.4em; margin-bottom: 50px; font-weight: 700; text-shadow: 0 4px 10px rgba(0,0,0,0.8); }
         .section-title span { color: #00f6ff; }
 
-        /* Glass Card (Used for About Section) */
+        /* Glass Card */
         .glass-card {
             background: linear-gradient(135deg, rgba(10, 15, 25, 0.6) 0%, rgba(10, 15, 25, 0.3) 100%);
             backdrop-filter: blur(25px); 
@@ -264,7 +264,7 @@
             padding: 40px 30px;
         }
 
-        /* Custom Styling for Intro text */
+        /* Introduction Text */
         .intro-text p {
             color: #cbd5e1;
             font-size: 1.05em;
@@ -274,6 +274,41 @@
         }
         .intro-text p:last-child {
             margin-bottom: 0;
+        }
+
+        /* NEW SECTION: Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 45px rgba(0, 246, 255, 0.15);
+            border-color: rgba(0, 246, 255, 0.3);
+        }
+
+        .service-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .service-card p {
+            color: #cbd5e1;
+            font-size: 1em;
+            line-height: 1.6;
         }
 
         /* Responsive */
@@ -313,6 +348,7 @@
         <ul>
             <li><a href="#home" class="active">Home</a></li>
             <li><a href="#about">Introduction</a></li>
+            <li><a href="#services">Services</a></li>
         </ul>
     </nav>
 
@@ -401,6 +437,29 @@
             <p>My mission is to inspire, mentor, and guide future beauty artists by providing personalized training, modern techniques, and a supportive learning environment. I believe that every student has the potential to build a successful career with the right knowledge, practice, and encouragement.</p>
             
             <p>What sets me apart is my commitment to practical learning, attention to detail, patience in teaching, and genuine dedication to each student's growth. I strive not only to teach beauty techniques but also to help individuals build confidence, creativity, and a strong foundation for a successful future in the beauty industry.</p>
+        </div>
+    </section>
+
+    <section id="services">
+        <h2 class="section-title">Services & <span>Expertise</span></h2>
+        <div class="services-grid">
+            <div class="glass-card service-card">
+                <div class="service-icon">💅</div>
+                <h3>Advanced Nail Artistry</h3>
+                <p>Expert in acrylics, gel extensions, 3D nail art, and modern manicure techniques to deliver flawless, long-lasting results.</p>
+            </div>
+            
+            <div class="glass-card service-card">
+                <div class="service-icon">✨</div>
+                <h3>SPMU Specialist</h3>
+                <p>Specialized in Semi-Permanent Makeup including microblading, lip blush, and permanent eyeliner for a natural, enhanced look.</p>
+            </div>
+            
+            <div class="glass-card service-card">
+                <div class="service-icon">🎓</div>
+                <h3>Professional Training</h3>
+                <p>Providing hands-on masterclasses and comprehensive certification courses to shape the next generation of beauty professionals.</p>
+            </div>
         </div>
     </section>
 
