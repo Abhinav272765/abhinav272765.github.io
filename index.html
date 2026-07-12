@@ -190,12 +190,6 @@
         .header-buttons { display: flex; flex-wrap: wrap; gap: 15px; position: relative; }
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
         
-        .btn-primary { 
-            background: #00f6ff; color: #1a1d24; 
-            box-shadow: 0 0 20px rgba(0, 246, 255, 0.5); 
-        }
-        .btn-primary:hover { box-shadow: 0 0 35px rgba(0, 246, 255, 0.8); transform: translateY(-3px); }
-        
         .btn-outline { 
             background: rgba(10, 15, 25, 0.6);
             backdrop-filter: blur(15px);
@@ -204,20 +198,6 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
         .btn-outline:hover { background: rgba(0, 246, 255, 0.15); transform: translateY(-3px); box-shadow: 0 0 20px rgba(0, 246, 255, 0.4); }
-
-        .btn-social {
-            background: rgba(10, 15, 25, 0.6);
-            backdrop-filter: blur(15px);
-            border: 2px solid #e1306c; /* Instagram color base */
-            color: #e1306c;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-        }
-        .btn-social:hover {
-            background: rgba(225, 48, 108, 0.15);
-            transform: translateY(-3px);
-            box-shadow: 0 0 20px rgba(225, 48, 108, 0.4);
-        }
 
         /* Hero Image */
         .hero-image {
@@ -260,34 +240,6 @@
             background-color: #1a1d24; 
         }
 
-        /* Contact Dropdown Styles */
-        .contact-dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            margin-top: 15px;
-            background: rgba(10, 15, 25, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 246, 255, 0.4);
-            border-radius: 12px;
-            padding: 25px;
-            width: 320px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
-            z-index: 10;
-        }
-
-        .contact-dropdown-menu h4 { color: #00f6ff; margin-bottom: 20px; font-size: 1.2em; text-align: center; }
-        
-        .contact-form button { width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .contact-form button.submit-btn { background: #00f6ff; color: #1a1d24; border: none; }
-        .contact-form button.submit-btn:hover { box-shadow: 0 0 15px rgba(0, 246, 255, 0.5); transform: translateY(-2px); }
-        .contact-form button.back-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #cbd5e1; }
-        .contact-form button.back-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
-
-        .contact-form input, .contact-form textarea { width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 8px; outline: none; font-family: inherit; transition: border-color 0.3s; }
-        .contact-form input:focus, .contact-form textarea:focus { border-color: #00f6ff; background: rgba(0,0,0,0.8); }
-
         /* Responsive */
         @media (max-width: 900px) {
             #home { flex-direction: column-reverse; text-align: center; padding-top: 160px; justify-content: center; gap: 50px; }
@@ -310,7 +262,6 @@
             nav ul { gap: 8px; }
             nav ul li a { padding: 6px 12px; font-size: 0.9em; }
             .hex-wrapper { width: 230px; height: 260px; }
-            .contact-dropdown-menu { width: 90vw; left: 50%; transform: translateX(-50%); }
             .btn { width: 100%; max-width: 300px; }
         }
     </style>
@@ -342,35 +293,6 @@
             });
         });
 
-        function toggleResumeForm() {
-            const resumeForm = document.getElementById('resume-dropdown');
-            if (resumeForm.style.display === 'block') {
-                resumeForm.style.display = 'none';
-            } else {
-                resumeForm.style.display = 'block';
-            }
-        }
-
-        function closeResumeForm() {
-            document.getElementById('resume-dropdown').style.display = 'none';
-        }
-
-        function sendResume() {
-            const email = document.getElementById('visitor-email').value;
-            if(email) {
-                const link = document.createElement('a');
-                link.href = 'Kavita_Teja_Portfolio.pdf'; // Update with your actual file name
-                link.download = 'Kavita_Teja_Portfolio.pdf';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                alert(`Thanks! Your portfolio download has started for ${email}.`);
-                closeResumeForm(); 
-            } else {
-                alert("Please enter your email address first.");
-            }
-        }
-
         // Prevent right click and inspect element
         document.addEventListener('contextmenu', event => event.preventDefault());
 
@@ -395,24 +317,9 @@
             </div>
             
             <div class="header-buttons" style="margin-top: 30px;">
-                <!-- Link your Instagram or Social Media here -->
-                <a href="#" target="_blank" class="btn btn-social contact-btn">
-                    <span>Follow Work</span>
-                </a>
-                <a href="javascript:void(0)" onclick="toggleResumeForm()" class="btn btn-outline contact-btn">
-                    <span>Download Portfolio</span>
-                </a>
                 <a href="#" target="_blank" class="btn btn-outline">
                     🏆 Certified Educator
                 </a>
-                <div id="resume-dropdown" class="contact-dropdown-menu">
-                    <div class="contact-form">
-                        <h4>Get Portfolio via Email</h4>
-                        <input type="email" id="visitor-email" placeholder="Enter your Email" required>
-                        <button class="submit-btn" onclick="sendResume()">Submit & Download</button>
-                        <button class="back-btn" onclick="closeResumeForm()">Close</button>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -420,8 +327,8 @@
             <div class="hex-wrapper">
                 <div class="hex-glow"></div>
                 <div class="hex-border"></div>
-                <!-- Add your actual image in src="kavita.jpeg" -->
-                <img src="kavita.jpeg" alt="Kavita Teja" class="hex-img" onerror="this.src='https://via.placeholder.com/400x450/1a1d24/00f6ff?text=KT'">
+                <!-- Updated image source to kavitaTeja.jpeg -->
+                <img src="kavitaTeja.jpeg" alt="Kavita Teja" class="hex-img" onerror="this.src='https://via.placeholder.com/400x450/1a1d24/00f6ff?text=KT'">
             </div>
         </div>
     </section>
