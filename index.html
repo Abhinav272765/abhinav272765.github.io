@@ -154,50 +154,6 @@
             box-shadow: 0 4px 15px rgba(0, 246, 255, 0.3); 
         }
 
-        /* Generic Section Styling */
-        section:not(#home) { 
-            padding: 100px 5% 60px; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            border-top: 1px solid rgba(255,255,255,0.05); 
-        }
-        .section-title { 
-            text-align: center; 
-            font-size: 2.4em; 
-            margin-bottom: 50px; 
-            font-weight: 700; 
-            text-shadow: 0 4px 10px rgba(0,0,0,0.8); 
-        }
-        .section-title span { color: #00f6ff; }
-
-        /* Glassmorphism Card (Used for Introduction) */
-        .glass-card {
-            background: linear-gradient(135deg, rgba(10, 15, 25, 0.6) 0%, rgba(10, 15, 25, 0.3) 100%);
-            backdrop-filter: blur(25px); 
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-top: 1px solid rgba(255, 255, 255, 0.15); 
-            border-left: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6); 
-            padding: 40px 30px;
-        }
-
-        .about-content p {
-            color: #cbd5e1;
-            font-size: 1.05em;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            text-align: justify;
-        }
-        .about-content p:last-child {
-            margin-bottom: 0;
-        }
-        .about-content strong {
-            color: #00f6ff;
-            font-weight: 600;
-        }
-
         /* Hero Section */
         #home {
             min-height: 100vh;
@@ -233,6 +189,12 @@
         /* Buttons */
         .header-buttons { display: flex; flex-wrap: wrap; gap: 15px; position: relative; }
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        
+        .btn-primary { 
+            background: #00f6ff; color: #1a1d24; 
+            box-shadow: 0 0 20px rgba(0, 246, 255, 0.5); 
+        }
+        .btn-primary:hover { box-shadow: 0 0 35px rgba(0, 246, 255, 0.8); transform: translateY(-3px); }
         
         .btn-outline { 
             background: rgba(10, 15, 25, 0.6);
@@ -284,6 +246,36 @@
             background-color: #1a1d24; 
         }
 
+        /* Generic Section Styling */
+        section:not(#home) { padding: 100px 5% 60px; max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.05); }
+        .section-title { text-align: center; font-size: 2.4em; margin-bottom: 50px; font-weight: 700; text-shadow: 0 4px 10px rgba(0,0,0,0.8); }
+        .section-title span { color: #00f6ff; }
+
+        /* Glass Card (Used for About Section) */
+        .glass-card {
+            background: linear-gradient(135deg, rgba(10, 15, 25, 0.6) 0%, rgba(10, 15, 25, 0.3) 100%);
+            backdrop-filter: blur(25px); 
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.15); 
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6); 
+            padding: 40px 30px;
+        }
+
+        /* Custom Styling for Intro text */
+        .intro-text p {
+            color: #cbd5e1;
+            font-size: 1.05em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        .intro-text p:last-child {
+            margin-bottom: 0;
+        }
+
         /* Responsive */
         @media (max-width: 900px) {
             #home { flex-direction: column-reverse; text-align: center; padding-top: 160px; justify-content: center; gap: 50px; }
@@ -300,16 +292,16 @@
             .hero-content h2 { font-size: 1.4em; }
             .hero-content h3 { font-size: 1.2em; }
             .hero-text-box p { font-size: 1em; }
+            .section-title { font-size: 2em; margin-bottom: 30px; }
+            section:not(#home) { padding: 80px 5% 40px; }
             #home { padding-top: 180px; padding-bottom: 40px; }
             nav { padding: 15px 5%; }
             nav .logo { font-size: 1.4em; }
             nav ul { gap: 8px; }
             nav ul li a { padding: 6px 12px; font-size: 0.9em; }
             .hex-wrapper { width: 230px; height: 260px; }
-            .btn { width: 100%; max-width: 300px; }
-            .section-title { font-size: 2em; margin-bottom: 30px; }
-            section:not(#home) { padding: 80px 5% 40px; }
             .glass-card { padding: 25px 15px; }
+            .btn { width: 100%; max-width: 300px; }
         }
     </style>
 </head>
@@ -325,7 +317,6 @@
     </nav>
 
     <script>
-        // Smooth scrolling for nav links
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -341,15 +332,15 @@
             });
         });
 
-        // Active link switching on scroll
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('nav ul li a');
 
         window.addEventListener('scroll', () => {
             let current = '';
+
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (pageYOffset >= (sectionTop - 150)) {
+                if (pageYOffset >= (sectionTop - 100)) {
                     current = section.getAttribute('id');
                 }
             });
@@ -362,7 +353,6 @@
             });
         });
 
-        // Prevent right click and inspect element
         document.addEventListener('contextmenu', event => event.preventDefault());
 
         document.addEventListener('keydown', function(e) {
@@ -374,14 +364,13 @@
         });
     </script>
 
-    <!-- Hero Section -->
     <section id="home">
         <div class="hero-content">
             <h1>Kavita Teja</h1>
             <h2><span>✨ Certified Nail & SPMU Educator</span></h2>
             
             <div class="hero-text-box">
-                <p class="highlight-text" style="color: #00f6ff; font-weight: 600;">Beauty Trainer | Nail Artist | SPMU Specialist</p>
+                <p class="highlight-text" style="color: #00f6ff; font-weight: 600;">Beauty Trainer | Nail Artist | PMU Specialist</p>
                 <h4 style="margin-top: 15px; color: #ffffff;">Professional Profile</h4>
                 <p>Passionate and certified beauty educator specializing in advanced nail artistry and Semi-Permanent Makeup (SPMU). Dedicated to empowering aspiring artists through high-quality training, blending creativity with industry-leading techniques to transform passion into a successful profession.</p>
             </div>
@@ -402,11 +391,10 @@
         </div>
     </section>
 
-    <!-- Introduction Section -->
     <section id="about">
         <h2 class="section-title">My <span>Introduction</span></h2>
-        <div class="glass-card about-content">
-            <p>Hello! I'm a <strong>Certified Nail & SPMU Educator</strong> with a passion for empowering aspiring beauty professionals through high-quality education and hands-on training. I specialize in advanced nail techniques and Semi-Permanent Makeup (SPMU), helping students develop the confidence and skills needed to succeed in the beauty industry.</p>
+        <div class="glass-card intro-text">
+            <p>Hello! I'm a <strong style="color: #00f6ff; font-weight: 600;">Certified Nail & SPMU Educator</strong> with a passion for empowering aspiring beauty professionals through high-quality education and hands-on training. I specialize in advanced nail techniques and Semi-Permanent Makeup (SPMU), helping students develop the confidence and skills needed to succeed in the beauty industry.</p>
             
             <p>My journey began with a love for creativity and beauty, which inspired me to transform my passion into a profession. Through continuous learning, professional certifications, and practical experience, I have dedicated myself to delivering industry-standard education that prepares students for real-world success.</p>
             
